@@ -10,3 +10,6 @@ license = "MIT"
 
 [dependencies]
 piano-rs = "0.1.0"
+
+[workspace]
+resolver = "2"
