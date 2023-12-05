@@ -1,7 +1,7 @@
 [package]
 name = "a-rusty-throat"
 version = "0.0.1"
-author = "DebuggerDan"
+#author = "DebuggerDan"
 edition = "2021"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
