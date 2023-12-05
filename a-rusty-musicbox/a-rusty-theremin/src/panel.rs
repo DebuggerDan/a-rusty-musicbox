@@ -186,9 +186,8 @@ impl Application for ThereminPanel {
                 "[A Rusty Theremin]: Frequency: {} Hz - Nearest Note: {}",
                 currfreq, currnote
             ))
-            .into()
         } else {
-            Text::new(format!("[A Rusty Theremin]: Hey there! You can control the pitch of the Rusty Theremin by wiggling your mouse inside le upper-half of the window! ({}x{})", self.width, self.height)).into()
+            Text::new(format!("[A Rusty Theremin]: Hey there! You can control the pitch of the Rusty Theremin by wiggling your mouse inside le upper-half of the window! ({}x{})", self.width, self.height))
         };
 
         let stuff = iced::widget::Column::new().push(bg).push(txt);
