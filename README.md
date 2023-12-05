@@ -1,5 +1,5 @@
 
-# A Rusty Musicbox
+# *A Rusty Musicbox* Project
 
 # CS 410P: Rust Programming, Course Project - A Rusty Musicbox - Fall 2023
 
