@@ -15,10 +15,13 @@ use std::sync::atomic::{AtomicUsize, Ordering};
 /// The public struct for the theremin panel / GUI
 pub struct ThereminPanel {
     freq: Arc<AtomicUsize>,
+    height: f32,
+    width: f32,
 }
 
 /// A helper constant for a frequency -> note conversion table!
-pub const NOTES: [(usize, &str); 12] = [
+pub const NOTES: [(usize, &str); 14] = [
+    (439, "Below A4"),
     (440, "A4"),
     (466, "A#4/B♭4"),
     (494, "B4"),
@@ -31,6 +34,7 @@ pub const NOTES: [(usize, &str); 12] = [
     (740, "F#5/G♭5"),
     (784, "G5"),
     (831, "G#5/A♭5"),
+    (832, "Above G#5/A♭5")
 ];
 
 // impl Application for ThereminGui {
@@ -43,6 +47,7 @@ pub const NOTES: [(usize, &str); 12] = [
 #[derive(Debug, Clone)]
 pub enum Message {
     EventOccurred(iced::Event),
+    //WindowSizeUpdates(iced::Size),
 }
 
 /// Helper function for frequency-to-note-translations!
@@ -91,6 +96,8 @@ impl Application for ThereminPanel {
         (
             Self {
                 freq,
+                height: 1000.0,
+                width: 1000.0,
             },
             Command::none(),
         )
@@ -103,12 +110,17 @@ impl Application for ThereminPanel {
 
     fn update(&mut self, pitch: Self::Message) -> Command<Self::Message> {
         match pitch {
+            Message::EventOccurred(iced::Event::Window(iced::window::Event::Resized { width, height })) => {
+                self.height = height as f32;
+                self.width = width as f32;
+            }
             Message::EventOccurred(iced::Event::Mouse(iced::mouse::Event::CursorMoved { position })) => {
                 
-                let h = 600.0; //1200.0; // 600.0;
+                //let h = 600.0; //1200.0; // 600.0;
                 //let w = 720.0;
-                let updatefreq = ((h - position.y) / h * 880.0) as usize; // Size specific for frequency-range mapping (A4 to A5)
-                //let updatefreq = ((h - position.y) / h * 1760.0) as usize; // Size specific for frequency-range mapping (A4 to A5)
+                let updatefreq = ((self.height - position.y) / self.height * 880.0) as usize;
+                //let updatefreq = ((h - position.y) / h * 880.0) as usize; // Size specific for frequency-range mapping
+                //let updatefreq = ((h - position.y) / h * 1760.0) as usize; // Size specific for frequency-range mapping
 
                 self.freq.store(updatefreq, Ordering::Relaxed);
             }
@@ -126,7 +138,7 @@ impl Application for ThereminPanel {
 
             Text::new(format!("[A Rusty Theremin]: Frequency: {} Hz - Nearest Note: {}", currfreq, currnote)).into()
         } else {
-            Text::new("[A Rusty Theremin]: Hey there! You can control the pitch of the Rusty Theremin by wiggling your mouse inside le upper-half of the window!").into()
+            Text::new(format!("[A Rusty Theremin]: Hey there! You can control the pitch of the Rusty Theremin by wiggling your mouse inside le upper-half of the window! ({}x{})", self.width, self.height)).into()
         }
     }
     
@@ -149,6 +161,14 @@ impl Application for ThereminPanel {
             Some(Message::EventOccurred(event))
         })
     }
+    // fn subscription(&self) -> Subscription<Self::Message> {
+    //     Subscription::batch(vec![
+    //         iced::subscription::events_with(|event, _status| {
+    //             Some(Message::EventOccurred(event))
+    //     }),
+        
+    //     ])
+    // }
 
     // fn subscription(&self) -> Subscription<Hasher, (Event, event::Status), Self::Message> {
     //     subscription::events_with(|event, _status| {

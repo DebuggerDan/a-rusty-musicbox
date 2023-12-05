@@ -12,6 +12,7 @@ use std::sync::atomic::{AtomicUsize, Ordering};
 pub struct Etherphonics {
     freq: Arc<AtomicUsize>,
     //color: ,
+    clock: Arc<AtomicUsize>, // persistent clock for reducing audio lag or clocks!
 }
 
 /// The etherphone function - which was the original name for the theremin - this function initializes the theremin's audio configuration + check-processing host audio-device for playback!
@@ -19,7 +20,10 @@ impl Etherphonics {
 
     /// Etherphone constructor function!
     pub fn new(freq: Arc<AtomicUsize>) -> Self {
-        Self { freq }
+        Self {
+            freq,
+            clock: Arc::new(AtomicUsize::new(0)),
+        }
     }
 
     /// Etherphone & host audio-device initialization function!
@@ -33,13 +37,14 @@ impl Etherphonics {
         let timeout = Some(Duration::from_millis(200));
         let channels = settings.channels() as usize;
         let freq = Arc::clone(&self.freq);
+        let clock = Arc::clone(&self.clock);
 
         let errorz = |whoopsie| eprintln!("[A Rusty Theremin - Etherphone]: Uh oh, an error occurred on the audio stream: {}", whoopsie);
         let music = match settings.sample_format() {
             cpal::SampleFormat::F32 => speakers.build_output_stream(
                 &settings.into(),
                 move |data: &mut [f32], _: &cpal::OutputCallbackInfo| {
-                    heterodyne_simulator(data, channels, rate, &freq)
+                    heterodyne_simulator(data, channels, rate, &freq, &clock)
                 },
                 errorz,
                 timeout
@@ -53,22 +58,25 @@ impl Etherphonics {
 /// The theremin's heterodyne-effect simulator-function
 /// Essentially, it generates sine-waves for audio playback at the specified frequency!
 /// However, the actual 'wobble' of our rusty theremin, is generated via the user's shaky mouse-input from the GUI.
-fn heterodyne_simulator<T>(music: &mut [T], channels: usize, rate: f32, freq: &Arc<AtomicUsize>)
+fn heterodyne_simulator<T>(music: &mut [T], channels: usize, rate: f32, freq: &Arc<AtomicUsize>, clock: &Arc<AtomicUsize>)
 where
     T: cpal::Sample + From<f32>,
 {
-    let mut clock = 0f32;
+    //let mut clock = 0f32;
+    let mut currclock = clock.load(Ordering::Relaxed) as f32;
     
     let freq = freq.load(Ordering::Relaxed) as f32;
 
     for frame in music.chunks_mut(channels) {
         // General Inspiration from CS410P: Music, Sound, & Computers - Sine Wave Generation for le audio
-        let tone = (clock * freq * 2.0 * std::f32::consts::PI / rate).sin();
+        let tone = (currclock * freq * 2.0 * std::f32::consts::PI / rate).sin();
 
         for note in frame.iter_mut() {
             *note = T::from(tone);
         }
 
-        clock = (clock + 1.0) % rate;
+        currclock = (currclock + 1.0) % rate;
     }
+
+    clock.store(currclock as usize, Ordering::Relaxed);
 }
