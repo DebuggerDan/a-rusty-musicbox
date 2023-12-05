@@ -25,5 +25,10 @@ TBA
 ### Project References & Credits
 
 * [Theremin](https://en.wikipedia.org/wiki/Theremin)
+* *[Public Domain Photo of a Theremin](http://www.publicdomainfiles.com/show_file.php?id=13533906018538)*
+* The *[iced](https://docs.rs/iced/0.10.0/iced/)* crate for main GUI!
+* The *[cpal](https://docs.rs/crate/cpal/latest/features)* crate for low-level, cross-platform audio I/O!
+* The spooky, *[atomic](https://doc.rust-lang.org/std/sync/atomic/)* types - for maximum audio smoothness, I think!
+* The *[Tiger.svg example](https://github.com/iced-rs/iced/tree/master/examples/svg)* from the iced crate *GitHub*!
 
 ## License: *[MIT License](https://opensource.org/license/mit//)* [LICENSE] (as of December 5th, 2023)
