@@ -2,12 +2,12 @@
 //! a-rusty-musicbox Project - Theremin GUI Implementation File (theremin.rs)
 //! Dan Jang, 12/05/2023
 
-use iced::{Application, Command, Element, Settings, Subscription, executor, Theme};
-use iced::widget::Text; // Correct import for Text
-//use iced_native::{Event, mouse}; // Ensure you're using iced_native::Event
-//use iced_futures::Event;
-use std::sync::Arc;
+use iced::widget::Text;
+use iced::{executor, Application, Command, Element, Settings, Subscription, Theme}; // Correct import for Text
+                                                                                    //use iced_native::{Event, mouse}; // Ensure you're using iced_native::Event
+                                                                                    //use iced_futures::Event;
 use std::sync::atomic::{AtomicUsize, Ordering};
+use std::sync::Arc;
 //use iced_native::subscription::{self, Subscription};
 //use iced_native::{Event, mouse};
 //use std::hash::Hasher;
@@ -34,7 +34,7 @@ pub const NOTES: [(usize, &str); 14] = [
     (740, "F#5/G♭5"),
     (784, "G5"),
     (831, "G#5/A♭5"),
-    (832, "Above G#5/A♭5")
+    (832, "Above G#5/A♭5"),
 ];
 
 // impl Application for ThereminGui {
@@ -78,7 +78,7 @@ pub fn autotune(freq: usize) -> Option<&'static str> {
 //             Some(note)
 //         } else {
 //             // find the closest note
-            
+
 //         }
 //     })
 // }
@@ -110,12 +110,16 @@ impl Application for ThereminPanel {
 
     fn update(&mut self, pitch: Self::Message) -> Command<Self::Message> {
         match pitch {
-            Message::EventOccurred(iced::Event::Window(iced::window::Event::Resized { width, height })) => {
+            Message::EventOccurred(iced::Event::Window(iced::window::Event::Resized {
+                width,
+                height,
+            })) => {
                 self.height = height as f32;
                 self.width = width as f32;
             }
-            Message::EventOccurred(iced::Event::Mouse(iced::mouse::Event::CursorMoved { position })) => {
-                
+            Message::EventOccurred(iced::Event::Mouse(iced::mouse::Event::CursorMoved {
+                position,
+            })) => {
                 //let h = 600.0; //1200.0; // 600.0;
                 //let w = 720.0;
                 let updatefreq = ((self.height - position.y) / self.height * 880.0) as usize;
@@ -136,12 +140,16 @@ impl Application for ThereminPanel {
             let currfreq = self.freq.load(Ordering::Relaxed);
             let currnote = autotune(currfreq).unwrap_or("Out of Note Range");
 
-            Text::new(format!("[A Rusty Theremin]: Frequency: {} Hz - Nearest Note: {}", currfreq, currnote)).into()
+            Text::new(format!(
+                "[A Rusty Theremin]: Frequency: {} Hz - Nearest Note: {}",
+                currfreq, currnote
+            ))
+            .into()
         } else {
             Text::new(format!("[A Rusty Theremin]: Hey there! You can control the pitch of the Rusty Theremin by wiggling your mouse inside le upper-half of the window! ({}x{})", self.width, self.height)).into()
         }
     }
-    
+
     // /// Rusty theremin GUI panel text - updates with current frequency if at least one note has been played!
     // fn view(&self) -> Element<'_, Self::Message> {
     //     if self.freq.load(Ordering::Relaxed) > 0 {
@@ -157,16 +165,14 @@ impl Application for ThereminPanel {
     /// Future note: iced_native may have older/putdated versions of its own modules,
     /// ...e.g. iced_native having v0.6.0 of iced_futures whilst iced has v0.7.0 - very strange
     fn subscription(&self) -> Subscription<Self::Message> {
-        iced::subscription::events_with(|event, _status| {
-            Some(Message::EventOccurred(event))
-        })
+        iced::subscription::events_with(|event, _status| Some(Message::EventOccurred(event)))
     }
     // fn subscription(&self) -> Subscription<Self::Message> {
     //     Subscription::batch(vec![
     //         iced::subscription::events_with(|event, _status| {
     //             Some(Message::EventOccurred(event))
     //     }),
-        
+
     //     ])
     // }
 
