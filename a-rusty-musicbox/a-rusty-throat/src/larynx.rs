@@ -22,23 +22,23 @@ pub struct ThroatPanel {
     lasty: f32,
 }
 
-/// A helper constant for a frequency -> note conversion table!
-pub const NOTES: [(usize, &str); 14] = [
-    (439, "Below A4"),
-    (440, "A4"),
-    (466, "A#4/B♭4"),
-    (494, "B4"),
-    (523, "C5"),
-    (554, "C#5/D♭5"),
-    (587, "D5"),
-    (622, "D#5/E♭5"),
-    (659, "E5"),
-    (698, "F5"),
-    (740, "F#5/G♭5"),
-    (784, "G5"),
-    (831, "G#5/A♭5"),
-    (832, "Above G#5/A♭5"),
-];
+// /// A helper constant for a frequency -> note conversion table!
+// pub const NOTES: [(usize, &str); 14] = [
+//     (439, "Below A4"),
+//     (440, "A4"),
+//     (466, "A#4/B♭4"),
+//     (494, "B4"),
+//     (523, "C5"),
+//     (554, "C#5/D♭5"),
+//     (587, "D5"),
+//     (622, "D#5/E♭5"),
+//     (659, "E5"),
+//     (698, "F5"),
+//     (740, "F#5/G♭5"),
+//     (784, "G5"),
+//     (831, "G#5/A♭5"),
+//     (832, "Above G#5/A♭5"),
+// ];
 
 /// Helper enum for throat GUI events
 #[derive(Debug, Clone)]
@@ -47,27 +47,27 @@ pub enum Message {
     //WindowSizeUpdates(iced::Size),
 }
 
-/// Helper function for frequency-to-note-translations!
-pub fn autotune(freq: usize) -> Option<&'static str> {
-    let mut nearestnote: Option<&'static str> = None;
-    let mut min_diff = usize::MAX;
+// /// Helper function for frequency-to-note-translations!
+// pub fn autotune(freq: usize) -> Option<&'static str> {
+//     let mut nearestnote: Option<&'static str> = None;
+//     let mut min_diff = usize::MAX;
 
-    for &(note_freq, note_name) in &NOTES {
-        let diff = if note_freq > freq {
-            note_freq - freq
-        } else {
-            freq - note_freq
-        };
+//     for &(note_freq, note_name) in &NOTES {
+//         let diff = if note_freq > freq {
+//             note_freq - freq
+//         } else {
+//             freq - note_freq
+//         };
 
-        if diff < min_diff {
-            min_diff = diff;
-            nearestnote = Some(note_name);
-        }
-    }
+//         if diff < min_diff {
+//             min_diff = diff;
+//             nearestnote = Some(note_name);
+//         }
+//     }
 
-    //nearestnote.map(|(_, &note)| note)
-    nearestnote
-}
+//     //nearestnote.map(|(_, &note)| note)
+//     nearestnote
+// }
 
 /// The main implementation of the Rusty Throat GUI panel!
 impl Application for ThroatPanel {
@@ -113,7 +113,7 @@ impl Application for ThroatPanel {
                 self.lasty = position.y;
                 let mut voice = self.voice.lock().unwrap();
 
-                voice.set_musical_note(((position.y / self.height) * 24.0));
+                voice.set_musical_note((position.y / self.height) * 24.0);
                 let vibratotest = position.x / self.width;
 
                 let _mouthopen_x = position.x / self.width;
@@ -133,7 +133,7 @@ impl Application for ThroatPanel {
                 }
 
                 //voice.set_vibrato_wobble((position.x / self.width) as f32);
-                voice.set_target_tenseness((position.y / self.height));
+                voice.set_target_tenseness(position.y / self.height);
                 //self.freq.store(updatefreq, Ordering::Relaxed);
             }
             _ => {}
