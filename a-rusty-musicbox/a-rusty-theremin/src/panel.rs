@@ -121,10 +121,10 @@ impl Application for ThereminPanel {
 
     fn view(&self) -> Element<'_, Self::Message> {
         if self.freq.load(Ordering::Relaxed) > 0 {
-            let current_freq = self.freq.load(Ordering::Relaxed);
-            let currnote = autotune(current_freq).unwrap_or("Out of Note Range");
+            let currfreq = self.freq.load(Ordering::Relaxed);
+            let currnote = autotune(currfreq).unwrap_or("Out of Note Range");
 
-            Text::new(format!("[A Rusty Theremin]: Nearest Note: {}", currnote)).into()
+            Text::new(format!("[A Rusty Theremin]: Frequency: {} Hz - Nearest Note: {}", currfreq, currnote)).into()
         } else {
             Text::new("[A Rusty Theremin]: Hey there! You can control the pitch of the Rusty Theremin by wiggling your mouse inside le upper-half of the window!").into()
         }
