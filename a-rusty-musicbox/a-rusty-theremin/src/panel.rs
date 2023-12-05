@@ -2,15 +2,15 @@
 //! a-rusty-musicbox Project - Theremin GUI Implementation File (theremin.rs)
 //! Dan Jang, 12/05/2023
 
-use iced::widget::Text;
 use iced::theme;
+use iced::widget::Text;
 //use iced::widget::svg as lesvg;
 //use iced::widget::Column as iceecolumn;
 //use iced::widget::Container as iceecup;
 //use iced::advanced::svg::Renderer as SVGRenderer;
 //use iced::widget::svg::Handle as svgHandle;
 use iced::widget::{container, svg};
-use iced::{executor, Application, Command, Element, Settings, Length, Subscription, Theme};
+use iced::{executor, Application, Command, Element, Length, Settings, Subscription, Theme};
 // Correct import for Text
 //use iced_native::{Event, mouse}; // Ensure you're using iced_native::Event
 //use iced_futures::Event;
@@ -79,7 +79,6 @@ pub enum Message {
 //         }
 //     }
 // }
-
 
 /// Helper function for frequency-to-note-translations!
 pub fn autotune(freq: usize) -> Option<&'static str> {
@@ -177,14 +176,12 @@ impl Application for ThereminPanel {
         let bg = svg(bgfile)
             .width(Length::Fill)
             .height(Length::Fill)
-            .style(
-                theme::Svg::Default
-            );
+            .style(theme::Svg::Default);
 
         let txt: Text = if self.freq.load(Ordering::Relaxed) > 0 {
             let currfreq = self.freq.load(Ordering::Relaxed);
             let currnote = autotune(currfreq).unwrap_or("Out of Note Range");
-            
+
             Text::new(format!(
                 "[A Rusty Theremin]: Frequency: {} Hz - Nearest Note: {}",
                 currfreq, currnote
@@ -194,16 +191,14 @@ impl Application for ThereminPanel {
             Text::new(format!("[A Rusty Theremin]: Hey there! You can control the pitch of the Rusty Theremin by wiggling your mouse inside le upper-half of the window! ({}x{})", self.width, self.height)).into()
         };
 
-        let stuff = iced::widget::Column::new()
-            .push(bg)
-            .push(txt);
+        let stuff = iced::widget::Column::new().push(bg).push(txt);
 
-        container(stuff).
-            width(iced::Length::Fill).
-            height(iced::Length::Fill).
-            center_x().
-            center_y().
-            into()
+        container(stuff)
+            .width(iced::Length::Fill)
+            .height(iced::Length::Fill)
+            .center_x()
+            .center_y()
+            .into()
     }
 
     // /// Rusty theremin GUI panel text - updates with current frequency if at least one note has been played!
