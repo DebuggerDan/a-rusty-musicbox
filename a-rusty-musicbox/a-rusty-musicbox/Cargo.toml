@@ -10,7 +10,9 @@ edition = "2021"
 a-rusty-piano = { path = "../a-rusty-piano" }
 a-rusty-theremin = { path = "../a-rusty-theremin" }
 iced = "0.10.0"
-iced_audio = "0.12.0"
+# iced_audio = "0.12.0"
+# microwave = "0.36.0"
+cpal = "0.15.2"
 
 [lib]
 path = "src/lib.rs"
