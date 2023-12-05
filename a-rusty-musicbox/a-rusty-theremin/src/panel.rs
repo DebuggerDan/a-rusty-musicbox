@@ -4,21 +4,12 @@
 
 use iced::theme;
 use iced::widget::Text;
-//use iced::widget::svg as lesvg;
-//use iced::widget::Column as iceecolumn;
-//use iced::widget::Container as iceecup;
-//use iced::advanced::svg::Renderer as SVGRenderer;
-//use iced::widget::svg::Handle as svgHandle;
+
 use iced::widget::{container, svg};
 use iced::{executor, Application, Command, Element, Length, Settings, Subscription, Theme};
-// Correct import for Text
-//use iced_native::{Event, mouse}; // Ensure you're using iced_native::Event
-//use iced_futures::Event;
+
 use std::sync::atomic::{AtomicUsize, Ordering};
 use std::sync::Arc;
-//use iced_native::subscription::{self, Subscription};
-//use iced_native::{Event, mouse};
-//use std::hash::Hasher;
 
 /// The public struct for the theremin panel / GUI
 pub struct ThereminPanel {
@@ -45,40 +36,12 @@ pub const NOTES: [(usize, &str); 14] = [
     (832, "Above G#5/A♭5"),
 ];
 
-// impl Application for ThereminGui {
-//     type Message = ();
-//     type Executor = executor::Default;
-//     type Flags = Arc<AtomicUsize>;
-//     type Theme = Theme;
-
 /// Helper enum for theremin GUI events
 #[derive(Debug, Clone)]
 pub enum Message {
     EventOccurred(iced::Event),
     //WindowSizeUpdates(iced::Size),
 }
-
-// /// Helper enum for implementing default Svg stuff - pt. 1
-// #[derive(Default, Clone, Copy)]
-// pub enum Svg {
-//     Custom(fn(&Theme) -> lesvg::Appearance),
-//     #[default]
-//     Default,
-//     //WindowSizeUpdates(iced::Size),
-// }
-
-// /// Helper impl for default Svg stuff - pt. 2
-// impl lesvg::StyleSheet for Theme
-// {
-//     type Style = Svg;
-
-//     fn appearance(&self, style: Self::Style) -> svg::Apearance {
-//         match style {
-//             Svg::Default => Default::default(),
-//             Svg::Custom(appearance) => appearance(self),
-//         }
-//     }
-// }
 
 /// Helper function for frequency-to-note-translations!
 pub fn autotune(freq: usize) -> Option<&'static str> {
@@ -101,17 +64,6 @@ pub fn autotune(freq: usize) -> Option<&'static str> {
     //nearestnote.map(|(_, &note)| note)
     nearestnote
 }
-
-// pub fn frequency_translator(freq: usize) -> Option<&'static str> {
-//     NOTES.iter().find_map(|&(lefreq, note)| {
-//         if lefreq == freq {
-//             Some(note)
-//         } else {
-//             // find the closest note
-
-//         }
-//     })
-// }
 
 /// The main implementation of the Rusty Theremin GUI panel!
 /// This took most of the time, as the GUI also is vital for the 'wobbly' instrument-playing effect to properly simulate a theremin, heh.
@@ -150,11 +102,7 @@ impl Application for ThereminPanel {
             Message::EventOccurred(iced::Event::Mouse(iced::mouse::Event::CursorMoved {
                 position,
             })) => {
-                //let h = 600.0; //1200.0; // 600.0;
-                //let w = 720.0;
                 let updatefreq = ((self.height - position.y) / self.height * 880.0) as usize;
-                //let updatefreq = ((h - position.y) / h * 880.0) as usize; // Size specific for frequency-range mapping
-                //let updatefreq = ((h - position.y) / h * 1760.0) as usize; // Size specific for frequency-range mapping
 
                 self.freq.store(updatefreq, Ordering::Relaxed);
             }
@@ -166,7 +114,7 @@ impl Application for ThereminPanel {
     /// Rusty theremin GUI panel text - updates with the converted note from frequency if at least one note has been played!
 
     fn view(&self) -> Element<'_, Self::Message> {
-        //let bgfile = svg::Handle::from_path("theremin-vector.svg");
+        // let bgfile = svg::Handle::from_path("theremin-vector.svg");
         // Credits to iced author's examples, specifically: https://github.com/iced-rs/iced/tree/master/examples/svg
         let bgfile = svg::Handle::from_path(format!(
             "{}/resources/theremin_vector.svg",
@@ -200,16 +148,6 @@ impl Application for ThereminPanel {
             .into()
     }
 
-    // /// Rusty theremin GUI panel text - updates with current frequency if at least one note has been played!
-    // fn view(&self) -> Element<'_, Self::Message> {
-    //     if self.freq.load(Ordering::Relaxed) > 0 {
-    //         let current_freq = self.freq.load(Ordering::Relaxed);
-    //         Text::new(format!("[A Rusty Theremin]: Current Freq.: {}", current_freq)).into()
-    //     } else {
-    //         Text::new("[A Rusty Theremin]: Hey there! You can control the pitch of the Rusty Theremin by wiggling your mouse inside le upper-half of the window!").into()
-    //     }
-    // }
-
     /// Rusty theremin GUI panel subscription for keeping track of mouse events!
     /// This was very tricky to implement then debug for hours!
     /// Future note: iced_native may have older/putdated versions of its own modules,
@@ -217,20 +155,6 @@ impl Application for ThereminPanel {
     fn subscription(&self) -> Subscription<Self::Message> {
         iced::subscription::events_with(|event, _status| Some(Message::EventOccurred(event)))
     }
-    // fn subscription(&self) -> Subscription<Self::Message> {
-    //     Subscription::batch(vec![
-    //         iced::subscription::events_with(|event, _status| {
-    //             Some(Message::EventOccurred(event))
-    //     }),
-
-    //     ])
-    // }
-
-    // fn subscription(&self) -> Subscription<Hasher, (Event, event::Status), Self::Message> {
-    //     subscription::events_with(|event, _status| {
-    //         Some(Message::EventOccurred(event))
-    //     })
-    // }
 }
 
 /// The public function for running the rusty theremin GUI window!

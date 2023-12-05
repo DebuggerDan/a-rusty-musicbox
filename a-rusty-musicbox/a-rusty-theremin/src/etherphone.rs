@@ -14,7 +14,6 @@ use std::time::Duration;
 
 pub struct Etherphonics {
     freq: Arc<AtomicUsize>,
-    //color: ,
     clock: Arc<AtomicUsize>, // persistent clock for reducing audio lag or clocks!
 }
 
