@@ -1,0 +1,20 @@
+[package]
+name = "a-rusty-musicbox"
+version = "0.0.1"
+author = "DebuggerDan"
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+a-rusty-piano = { path = "../a-rusty-piano" }
+a-rusty-theremin = { path = "../a-rusty-theremin" }
+iced = "0.10.0"
+iced_audio = "0.12.0"
+
+[lib]
+path = "src/lib.rs"
+
+[[bin]]
+name = "a-rusty-musicbox"
+path = "src/main.rs"

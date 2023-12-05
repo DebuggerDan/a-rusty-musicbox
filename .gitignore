@@ -398,3 +398,14 @@ FodyWeavers.xsd
 *.sln.iml
 Archive/
 Archive/*
+target/
+target/*
+
+a-rusty-musicbox/target/
+a-rusty-musicbox/target/*
+
+a-rusty-piano/target/
+a-rusty-piano/target/*
+
+a-rusty-theremin/target/
+a-rusty-theremin/target/*
