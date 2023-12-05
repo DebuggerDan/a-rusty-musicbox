@@ -2,17 +2,15 @@
 //! a-rusty-throat Project - Throat Main Implementation File
 //! Dan Jang, 12/05/2023
 
-mod vocalcords;
 mod larynx;
+mod vocalcords;
 
 use cpal::traits::StreamTrait;
 // use std::sync::atomic::AtomicUsize;
 // use std::sync::Arc;
 
-
 /// Main function for A Rusty Throat!
 fn main() -> Result<(), anyhow::Error> {
-    
     //let freq = Arc::new(AtomicUsize::new(127));
 
     // *cough cough* initialize le voice
@@ -21,8 +19,12 @@ fn main() -> Result<(), anyhow::Error> {
     let voice = trachea.shazam();
 
     //let music = vocalcords::Trachea::new(Arc::clone(&freq));
-    let speech = trachea.talk().expect("[A Rusty Throat - Main Larynx - Part 1]: Sore throat?");
-    speech.play().expect("[A Rusty Throat - Main Larynx - Part 2]: Dry throat?");
+    let speech = trachea
+        .talk()
+        .expect("[A Rusty Throat - Main Larynx - Part 1]: Sore throat?");
+    speech
+        .play()
+        .expect("[A Rusty Throat - Main Larynx - Part 2]: Dry throat?");
 
     larynx::warm_up(voice)?;
     Ok(())

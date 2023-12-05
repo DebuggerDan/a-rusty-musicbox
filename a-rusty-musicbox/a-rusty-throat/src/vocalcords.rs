@@ -9,10 +9,10 @@ use cpal::{
     traits::{DeviceTrait, HostTrait},
     Stream,
 };
+use rand::Rng;
 use std::sync::atomic::{AtomicUsize, Ordering};
 use std::sync::{Arc, Mutex};
 use std::time::Duration;
-use rand::Rng;
 
 use pink_trombone::{NoiseSource, PinkTrombone};
 
@@ -59,13 +59,10 @@ impl Trachea {
             cpal::SampleFormat::F32 => speakers.build_output_stream(
                 &settings.into(),
                 move |data: &mut [f32], _: &cpal::OutputCallbackInfo| {
-                    
                     let mut voice = voice.lock().unwrap();
-                    
                     let mut buff = [0_f32; 512];
                     let buffsize = buff.len();
                     let mut buffpos = buffsize;
-
                     for frame in data.chunks_mut(channels) {
                         if buffpos >= buffsize {
                             voice.synthesize(&mut buff);
@@ -91,7 +88,6 @@ impl Trachea {
     pub fn shazam(&self) -> Arc<Mutex<PinkTrombone>> {
         Arc::clone(&self.voice)
     }
-    
 }
 
 /// Helper functions, NoiseSource<f64> & struct ThreadRng {} for throat uniqueness, from the example provided from pink-trombone!
@@ -104,7 +100,6 @@ impl NoiseSource<f64> for ThreadRng {
         rng.gen()
     }
 }
-
 
 // /// A 'lingusting' simulator of a virtual voice box - the voice box function!
 // /// Essentially, it passes the modified-theremin GUI panel user-input to the pink-trombone library to generate horrors in audioforms

@@ -73,7 +73,7 @@ pub fn autotune(freq: usize) -> Option<&'static str> {
 impl Application for ThroatPanel {
     type Executor = executor::Default;
     type Message = Message;
-    type Flags = Arc<Mutex<PinkTrombone>>;//Arc<AtomicUsize>;
+    type Flags = Arc<Mutex<PinkTrombone>>; //Arc<AtomicUsize>;
     type Theme = Theme;
 
     /// Rusty throat GUI panel constructor
@@ -115,17 +115,16 @@ impl Application for ThroatPanel {
 
                 voice.set_musical_note(((position.y / self.height) * 24.0) as f32);
                 let vibratotest = position.x / self.width;
-                
+
                 let mouthopen_x = position.x / self.width;
                 let mouthopen_y = position.y / self.height;
 
                 if (position.x > 0.1) && (position.y > 0.1) {
                     voice.set_velum_open(true);
-                } else
-                {
+                } else {
                     voice.set_velum_open(false);
                 }
-                
+
                 if vibratotest > 0.5 {
                     voice.set_vibrato_wobble(true);
                     voice.set_vibrato_frequency(vibratotest as f32);
@@ -166,8 +165,7 @@ impl Application for ThroatPanel {
 
             let mut vibratobool: &str = "No";
 
-            if mouthopen_x > 0.5
-            {
+            if mouthopen_x > 0.5 {
                 vibratobool = "Yes";
             }
 
