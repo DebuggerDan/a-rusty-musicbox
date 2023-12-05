@@ -109,15 +109,15 @@ impl Application for ThroatPanel {
                 position,
             })) => {
                 //let updatefreq = ((self.height - position.y) / self.height * 880.0) as usize;
-                self.lastx = position.x as f32;
-                self.lasty = position.y as f32;
+                self.lastx = position.x;
+                self.lasty = position.y;
                 let mut voice = self.voice.lock().unwrap();
 
-                voice.set_musical_note(((position.y / self.height) * 24.0) as f32);
+                voice.set_musical_note(((position.y / self.height) * 24.0));
                 let vibratotest = position.x / self.width;
 
-                let mouthopen_x = position.x / self.width;
-                let mouthopen_y = position.y / self.height;
+                let _mouthopen_x = position.x / self.width;
+                let _mouthopen_y = position.y / self.height;
 
                 if (position.x > 0.1) && (position.y > 0.1) {
                     voice.set_velum_open(true);
@@ -127,13 +127,13 @@ impl Application for ThroatPanel {
 
                 if vibratotest > 0.5 {
                     voice.set_vibrato_wobble(true);
-                    voice.set_vibrato_frequency(vibratotest as f32);
+                    voice.set_vibrato_frequency(vibratotest);
                 } else {
                     voice.set_vibrato_wobble(false);
                 }
 
                 //voice.set_vibrato_wobble((position.x / self.width) as f32);
-                voice.set_target_tenseness((position.y / self.height) as f32);
+                voice.set_target_tenseness((position.y / self.height));
                 //self.freq.store(updatefreq, Ordering::Relaxed);
             }
             _ => {}
@@ -159,7 +159,7 @@ impl Application for ThroatPanel {
         let txt: Text = if (self.lastx > 0.1) && (self.lasty > 0.1) {
             //let currfreq = self.freq.load(Ordering::Relaxed);
             //let currnote = autotune(currfreq).unwrap_or("Out of Note Range");
-            let currnote = (self.lasty / self.height) * 24.0 as f32;
+            let currnote = (self.lasty / self.height) * 24.0_f32;
             let mouthopen_x = self.lastx / self.width;
             let mouthopen_y = self.lasty / self.height;
 

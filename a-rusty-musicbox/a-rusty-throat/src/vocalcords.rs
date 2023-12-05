@@ -10,7 +10,7 @@ use cpal::{
     Stream,
 };
 use rand::Rng;
-use std::sync::atomic::{AtomicUsize, Ordering};
+
 use std::sync::{Arc, Mutex};
 use std::time::Duration;
 
@@ -42,7 +42,7 @@ impl Trachea {
         let speakers = host.default_output_device().ok_or(anyhow::Error::msg("[A Rusty Throat - Vocal Cords]: Uh oh, it would appear that no compatible speakers/audio devices were detected?"))?;
 
         let settings = speakers.default_output_config()?;
-        let rate = settings.sample_rate().0 as f32;
+        let _rate = settings.sample_rate().0 as f32;
         let timeout = Some(Duration::from_millis(50));
         let channels = settings.channels() as usize;
         // let freq = Arc::clone(&self.freq);
