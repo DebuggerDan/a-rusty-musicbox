@@ -2,11 +2,11 @@
 //! a-rusty-throat Project - Larynx [GUI - based off le a-rusty-throat library's panel.rs] Implementation File
 //! Dan Jang, 12/05/2023
 
-use iced::theme;
+// use iced::theme;
 use iced::widget::Text;
 use pink_trombone::PinkTrombone;
 
-use iced::widget::{container, svg};
+use iced::widget::{container, image};
 use iced::{executor, Application, Command, Element, Length, Settings, Subscription, Theme};
 
 //use std::sync::atomic::{Ordering};
@@ -144,17 +144,15 @@ impl Application for ThroatPanel {
     /// Rusty throat GUI panel text - updates with the converted note from frequency if at least one note has been played!
 
     fn view(&self) -> Element<'_, Self::Message> {
-        // let bgfile = svg::Handle::from_path("throat-vector.svg");
-        // Credits to iced author's examples, specifically: https://github.com/iced-rs/iced/tree/master/examples/svg
-        let bgfile = svg::Handle::from_path(format!(
-            "{}/resources/theremin_vector.svg",
+        // Credits to iced author's examples, specifically: https://github.com/iced-rs/iced/tree/master/examples/pokedex [for png/image]
+        // Photo Credits & Source: https://experiments.withgoogle.com/pink-trombone
+        let bgfile = image::Handle::from_path(format!(
+            "{}/resources/new_pinktrombone.png",
             env!("CARGO_MANIFEST_DIR")
         ));
-        //let bg: iced::widget::Svg<Renderer> = lesvg::Svg::new(bgfile)
-        let bg = svg(bgfile)
-            .width(Length::Fill)
-            .height(Length::Fill)
-            .style(theme::Svg::Default);
+
+        let bg = image(bgfile).width(Length::Fill).height(Length::Fill);
+        //.style(theme::Image::Default);
 
         let txt: Text = if (self.lastx > 0.1) && (self.lasty > 0.1) {
             //let currfreq = self.freq.load(Ordering::Relaxed);
