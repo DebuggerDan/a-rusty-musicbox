@@ -56,13 +56,5 @@ fn main() {
             ),
         };
 
-        // if userinput == 1 {
-        //     rusty_theremin::main();
-        // } else if userinput == 2 {
-        //     rusty_throat::main();
-        // }
-        // } else {
-        //     println!("Sorry, {} is not a valid number between 1 & {} - please try again!", userinput, optionnum);
-        // }
     }
 }

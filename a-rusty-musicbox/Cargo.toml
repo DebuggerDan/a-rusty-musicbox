@@ -2,7 +2,6 @@
 members = [
     "a-rusty-theremin",
     "a-rusty-throat",
-    # "a-rusty-piano",
 ]
 [package]
 name = "a-rusty-musicbox"
