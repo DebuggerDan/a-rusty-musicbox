@@ -1,5 +1,5 @@
 //! CS410P: Rust Programming, Course Project - Fall 2023
-//! a-rusty-throat Project - Larynx [GUI - based off le a-rusty-throat library's panel.rs] Implementation File
+//! a-rusty-throat - Larynx [GUI - based off le a-rusty-throat library's panel.rs] Implementation File
 //! Dan Jang, 12/05/2023
 
 // use iced::theme;

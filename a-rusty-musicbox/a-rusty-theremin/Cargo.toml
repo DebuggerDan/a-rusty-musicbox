@@ -1,7 +1,7 @@
 [package]
 name = "a-rusty-theremin"
-version = "1.0.0"
-#author = "DebuggerDan"
+version = "1.0.1"
+authors = ["Dan Jang <realdanjang@gmail.com>"]
 edition = "2021"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
@@ -11,5 +11,10 @@ iced = { version = "0.10.0", features = ["image", "svg", "advanced"] }
 cpal = "0.15.2"
 anyhow = "1.0.40"
 
-[workspace]
-resolver = "2"
+# [[bin]]
+# name = "a_rusty_theremin"
+# path = "src/main.rs"
+
+[lib]
+name = "a_rusty_theremin"
+path = "src/lib.rs"

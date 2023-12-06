@@ -3,12 +3,33 @@
 version = 3
 
 [[package]]
+name = "a-rusty-musicbox"
+version = "1.0.1"
+dependencies = [
+ "a-rusty-theremin",
+ "a-rusty-throat",
+ "prompted",
+]
+
+[[package]]
 name = "a-rusty-theremin"
 version = "1.0.1"
 dependencies = [
  "anyhow",
  "cpal",
  "iced",
+]
+
+[[package]]
+name = "a-rusty-throat"
+version = "1.0.1"
+dependencies = [
+ "anyhow",
+ "cpal",
+ "iced",
+ "pink-trombone",
+ "prompted",
+ "rand",
 ]
 
 [[package]]
@@ -2126,6 +2147,15 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "8b870d8c151b6f2fb93e84a13146138f05d02ed11c7e7c54f8826aaaf7c9f184"
 
 [[package]]
+name = "pink-trombone"
+version = "0.2.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "3f6c92c6bc62836e9f7a4749144229d55d58b886d33de82fdaa8efcd7ce52b30"
+dependencies = [
+ "rand",
+]
+
+[[package]]
 name = "pkg-config"
 version = "0.3.27"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -2174,6 +2204,12 @@ name = "profiling"
 version = "1.0.11"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "f89dff0959d98c9758c88826cc002e2c3d0b9dfac4139711d1f30de442f1139b"
+
+[[package]]
+name = "prompted"
+version = "0.2.8"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "d34cf5bf48e2fe6e11fb6b619fb5962530f1eaf278709de5f8ea49afa7379f9b"
 
 [[package]]
 name = "qoi"
@@ -3531,9 +3567,9 @@ dependencies = [
 
 [[package]]
 name = "winnow"
-version = "0.5.24"
+version = "0.5.25"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "0383266b19108dfc6314a56047aa545a1b4d1be60e799b4dbdd407b56402704b"
+checksum = "b7e87b8dfbe3baffbe687eef2e164e32286eff31a5ee16463ce03d991643ec94"
 dependencies = [
  "memchr",
 ]
@@ -3627,18 +3663,18 @@ checksum = "dd15f8e0dbb966fd9245e7498c7e9e5055d9e5c8b676b95bd67091cd11a1e697"
 
 [[package]]
 name = "zerocopy"
-version = "0.7.28"
+version = "0.7.29"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "7d6f15f7ade05d2a4935e34a457b936c23dc70a05cc1d97133dc99e7a3fe0f0e"
+checksum = "5d075cf85bbb114e933343e087b92f2146bac0d55b534cbb8188becf0039948e"
 dependencies = [
  "zerocopy-derive",
 ]
 
 [[package]]
 name = "zerocopy-derive"
-version = "0.7.28"
+version = "0.7.29"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "dbbad221e3f78500350ecbd7dfa4e63ef945c05f4c61cb7f4d3f84cd0bba649b"
+checksum = "86cd5ca076997b97ef09d3ad65efe811fa68c9e874cb636ccb211223a813b0c2"
 dependencies = [
  "proc-macro2",
  "quote",

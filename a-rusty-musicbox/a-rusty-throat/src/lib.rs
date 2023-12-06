@@ -1,5 +1,5 @@
 //! CS410P: Rust Programming, Course Project - Fall 2023
-//! a-rusty-throat - Throat Main Implementation File
+//! a-rusty-throat - Throat Library Implementation File (lib.rs)
 //! Dan Jang, 12/05/2023
 
 mod larynx;
@@ -8,7 +8,7 @@ mod vocalcords;
 use cpal::traits::StreamTrait;
 
 /// Main function for A Rusty Throat!
-pub fn main() -> Result<(), anyhow::Error> {
+pub fn sing() -> Result<(), anyhow::Error> {
     // *cough cough* initialize le voice
     let rate = 48000;
     let trachea = vocalcords::Trachea::new(rate);
