@@ -34,7 +34,7 @@ path = "./a-rusty-throat"
 # a-rusty-throat = { path = "../a-rusty-throat" }
 #a-rusty-piano = { path = "../a-rusty-piano" }
 
-iced = "0.10.0"
+# iced = "0.10.0"
 # iced_audio = "0.12.0"
 # microwave = "0.36.0"
-cpal = "0.15.2"
+# cpal = "0.15.2"
