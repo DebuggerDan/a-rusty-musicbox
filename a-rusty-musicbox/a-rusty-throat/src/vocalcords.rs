@@ -2,7 +2,7 @@
 //! a-rusty-throat Project - Vocal Cords [Audio processing - based off le a-rusty-theremin's library's etherphone.rs] Implementation File
 //! This .rs file - modified from etherphone.rs of the a-rusty-theremin library - contains the audio device & stream logic for the /throat/ audio playback,
 //! ...as well as the logic for the constant generation of the throat audio-stream - via the Trachea main function & heterodyne-effect simulator function!
-//! Credits: Based off rodio-integration example, source: https://github.com/lostmsu/pink-trombone/blob/master/examples/pink-trombone.rs)
+//! Credits: Based off rodio-integration example, source: <https://github.com/lostmsu/pink-trombone/blob/master/examples/pink-trombone.rs)>
 //! Dan Jang, 12/05/2023
 
 use cpal::{

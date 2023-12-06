@@ -12,7 +12,11 @@ TBA
 
 1. ***`A Rusty Musicbox`*** (*a-rusty-musicbox*): Main Wrapper / Binary CLI Program Library
    1. ***`A Rusty Theremin`*** (*a-rusty-theremin*): A Complex, Rusty Theremin Musical Instrument Implementation Library
+
+      ![1701833207468](image/README/1701833207468.png)
    2. ***`A Rusty Throat`*** (*a-rusty-throat*): A Silly, Rusty Throat/Vocal Cord Simulation Musical Library
+
+      ![1701833218996](image/README/1701833218996.png)
 
 ***~~`A Rusty Piano`~~*** (*~~a-rusty-piano~~*): ~~A Simple, Rusty Piano Musical Instrument Implementation Library~~
 
