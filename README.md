@@ -54,9 +54,9 @@ git clone https://github.com/DebuggerDan/a-rusty-musicbox.git
 
 ### Project Examples
 
-![1701833207468](https://file+.vscode-resource.vscode-cdn.net/c%3A/Users/Dan/iCloudDrive/Academia/PSU/Computer%20Science/CS%20410P%20-%20Rust%20Programming/cs410p-rust-programming-project-fall2023/image/README/1701833207468.png)
+![First Instrument Demo](code-operation1.png)
 
-![1701833218996](https://file+.vscode-resource.vscode-cdn.net/c%3A/Users/Dan/iCloudDrive/Academia/PSU/Computer%20Science/CS%20410P%20-%20Rust%20Programming/cs410p-rust-programming-project-fall2023/image/README/1701833218996.png)
+![Second Instrument Demo](code-operation2.png)
 
 ### Project Procedures, Challenges, & Analysis
 
