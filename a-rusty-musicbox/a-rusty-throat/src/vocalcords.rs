@@ -17,8 +17,6 @@ use std::time::Duration;
 use pink_trombone::{NoiseSource, PinkTrombone};
 
 pub struct Trachea {
-    // freq: Arc<AtomicUsize>,
-    // clock: Arc<AtomicUsize>, // persistent clock for reducing audio lag or clocks!
     voice: Arc<Mutex<PinkTrombone>>,
 }
 
@@ -45,8 +43,7 @@ impl Trachea {
         let _rate = settings.sample_rate().0 as f32;
         let timeout = Some(Duration::from_millis(50));
         let channels = settings.channels() as usize;
-        // let freq = Arc::clone(&self.freq);
-        // let clock = Arc::clone(&self.clock);
+
         let voice = Arc::clone(&self.voice);
 
         let errorz = |whoopsie| {
@@ -74,7 +71,6 @@ impl Trachea {
                         }
                         buffpos += 1;
                     }
-                    //lingusting_simulator(data, channels, rate, &freq, &clock)
                 },
                 errorz,
                 timeout
@@ -100,34 +96,3 @@ impl NoiseSource<f64> for ThreadRng {
         rng.gen()
     }
 }
-
-// /// A 'lingusting' simulator of a virtual voice box - the voice box function!
-// /// Essentially, it passes the modified-theremin GUI panel user-input to the pink-trombone library to generate horrors in audioforms
-// /// Like the a-rusty-theremin, the actual 'wobble' heard is generated via the user's shaky mouse-input from the GUI.
-// fn lingusting_simulator<T>(
-//     music: &mut [T],
-//     channels: usize,
-//     rate: f32,
-//     freq: &Arc<AtomicUsize>,
-//     clock: &Arc<AtomicUsize>,
-// ) where
-//     T: cpal::Sample + From<f32>,
-// {
-//     //let mut clock = 0f32;
-//     let mut currclock = clock.load(Ordering::Relaxed) as f32;
-
-//     let freq = freq.load(Ordering::Relaxed) as f32;
-
-//     for frame in music.chunks_mut(channels) {
-//         // General Inspiration from CS410P: Music, Sound, & Computers - Sine Wave Generation for le audio
-//         let tone = (currclock * freq * 2.0 * std::f32::consts::PI / rate).sin();
-
-//         for note in frame.iter_mut() {
-//             *note = T::from(tone);
-//         }
-
-//         currclock = (currclock + 1.0) % rate;
-//     }
-
-//     clock.store(currclock as usize, Ordering::Relaxed);
-// }
