@@ -35,7 +35,7 @@ fn main() {
         let userinput = input!("Please enter your choice, as a whole number from 1 to {} (e.g., type the number 1, then press enter, to explore the first instrument): ", optionnum);
         match userinput.parse::<isize>() {
             Ok(num) => {
-                if num >= 1 && num <= 3 {
+                if (1..=3).contains(&num) {
                     println!("You chose option number {}!", num);
                     if num == 1 {
                         println!("\nNow loading... 1. A Rusty Theremin - The normal theremin!\n");
