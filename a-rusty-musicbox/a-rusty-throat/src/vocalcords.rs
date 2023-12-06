@@ -96,3 +96,15 @@ impl NoiseSource<f64> for ThreadRng {
         rng.gen()
     }
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_talk() {
+        let trachea = Trachea::new(44100);
+        let stream = trachea.talk();
+        assert!(stream.is_ok());
+    }
+}

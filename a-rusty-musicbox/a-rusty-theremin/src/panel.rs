@@ -22,18 +22,18 @@ pub struct ThereminPanel {
 pub const NOTES: [(usize, &str); 14] = [
     (439, "Below A4"),
     (440, "A4"),
-    (466, "A#4/B♭4"),
+    (466, "A#4/Bb4"),
     (494, "B4"),
     (523, "C5"),
-    (554, "C#5/D♭5"),
+    (554, "C#5/Db5"),
     (587, "D5"),
-    (622, "D#5/E♭5"),
+    (622, "D#5/Eb5"),
     (659, "E5"),
     (698, "F5"),
-    (740, "F#5/G♭5"),
+    (740, "F#5/Gb5"),
     (784, "G5"),
-    (831, "G#5/A♭5"),
-    (832, "Above G#5/A♭5"),
+    (831, "G#5/Ab5"),
+    (832, "Above G#5/Ab5"),
 ];
 
 /// Helper enum for theremin GUI events
@@ -161,4 +161,23 @@ impl Application for ThereminPanel {
 pub fn power_on(freq: Arc<AtomicUsize>) -> iced::Result {
     //ThereminPanel::run(Settings::default(), freq)
     ThereminPanel::run(Settings::with_flags(freq))
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn autotune_returns_nearest_note() {
+        assert_eq!(autotune(430), Some("Below A4"));
+        assert_eq!(autotune(440), Some("A4"));
+        assert_eq!(autotune(450), Some("A4"));
+        assert_eq!(autotune(465), Some("A#4/Bb4"));
+        assert_eq!(autotune(500), Some("B4"));
+        assert_eq!(autotune(520), Some("C5"));
+        assert_eq!(autotune(550), Some("C#5/Db5"));
+        assert_eq!(autotune(580), Some("D5"));
+        assert_eq!(autotune(610), Some("D#5/Eb5"));
+        assert_eq!(autotune(840), Some("Above G#5/Ab5"));
+    }
 }
