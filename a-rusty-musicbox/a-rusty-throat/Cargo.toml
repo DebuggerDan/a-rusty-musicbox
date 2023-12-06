@@ -4,8 +4,6 @@ version = "1.0.1"
 authors = ["Dan Jang <realdanjang@gmail.com>"]
 edition = "2021"
 
-# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
-
 [dependencies]
 iced = { version = "0.10.0", features = ["image", "svg", "advanced"] }
 cpal = "0.15.2"
@@ -13,10 +11,6 @@ anyhow = "1.0.40"
 pink-trombone = "0.2.1"
 rand = "0.8.4"
 prompted = "0.2.8"
-
-# [[bin]]
-# name = "a_rusty_throat"
-# path = "src/main.rs"
 
 [lib]
 name = "a_rusty_throat"

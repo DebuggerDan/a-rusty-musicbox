@@ -10,31 +10,16 @@ version = "1.0.1"
 authors = ["Dan Jang <realdanjang@gmail.com>"]
 edition = "2021"
 
-# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
-
-# [lib]
-# name = "a_rusty_musicbox"
-# path = "src/lib.rs"
-
 [[bin]]
 name = "a_rusty_musicbox"
 path = "src/main.rs"
 
 [dependencies]
 prompted = "0.2.8"
-# a-rusty-theremin = { path = "./a-rusty-theremin" }
-# a-rusty-throat = { path = "./a-rusty-throat" }
+
 
 [dependencies.a-rusty-theremin]
 path = "./a-rusty-theremin"
 
 [dependencies.a-rusty-throat]
 path = "./a-rusty-throat"
-# a-rusty-theremin = { path = "../a-rusty-theremin" }
-# a-rusty-throat = { path = "../a-rusty-throat" }
-#a-rusty-piano = { path = "../a-rusty-piano" }
-
-# iced = "0.10.0"
-# iced_audio = "0.12.0"
-# microwave = "0.36.0"
-# cpal = "0.15.2"
